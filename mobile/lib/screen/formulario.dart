@@ -12,10 +12,9 @@ class Formulario extends StatefulWidget {
 }
 
 class _FormularioState extends State<Formulario> {
+
   final TextEditingController valorController = TextEditingController();
   final TextEditingController tipoController = TextEditingController();
-
-  late final double valor;
 
   @override
   Widget build(BuildContext context) {
@@ -45,19 +44,20 @@ class _FormularioState extends State<Formulario> {
                   controller: tipoController,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-
-                    valor = double.parse(valorController.text);
+                  onPressed: () async {
+                    double valor = double.parse(valorController.text);
 
                     var api = TransacoesService();
                     api.postTransacoes(valor, tipoController.text);
 
-                    List<Transacao> transacoes = api.getTransacoes();
+                    List<Transacao> transacoes = await api.getTransacoes();
 
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Transacoes(),
+                        builder: (context) => Transacoes(
+                          transacoes: transacoes,
+                        ),
                       ),
                     );
                   },

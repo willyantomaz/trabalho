@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/model/transacao.dart';
 
-class Transacoes extends StatelessWidget {
+import '../service/transacoes_service.dart';
+
+class Transacoes extends StatefulWidget {
   final List<Transacao> transacoes;
 
   Transacoes({
@@ -9,6 +11,13 @@ class Transacoes extends StatelessWidget {
     required this.transacoes,
   });
 
+  @override
+  State<Transacoes> createState() => _TransacoesState();
+}
+
+class _TransacoesState extends State<Transacoes> {
+
+  var api = TransacoesService();
 
   @override
   Widget build(BuildContext context) {
@@ -16,20 +25,25 @@ class Transacoes extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Transações"),
       ),
-      body: Expanded(
-        child: ListView.builder(
-          itemCount: transacoes.length,
-          itemBuilder: (BuildContext context, int index) {
-            return const Card(
-              child: Card(
-                child: ListTile(
-                  title: Text("Transação 1"),
-                  subtitle: Text("Valor: 100.00"),
-                ),
+      body: ListView.builder(
+        itemCount: widget.transacoes.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            child: ListTile(
+              title: Text(widget.transacoes[index].tipo),
+              subtitle: Text(widget.transacoes[index].valor.toString()),
+              trailing: IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () async {
+                  api.deleteId(widget.transacoes[index].id);
+                  setState(() {
+                    widget.transacoes.removeAt(index);
+                  });
+                },
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
