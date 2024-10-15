@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/model/transacao.dart';
 
+import 'editor.dart';
 import '../service/transacoes_service.dart';
 
 class Transacoes extends StatefulWidget {
@@ -39,6 +40,19 @@ class _TransacoesState extends State<Transacoes> {
                   setState(() {
                     widget.transacoes.removeAt(index);
                   });
+                },
+              ),
+              leading: IconButton(
+                icon: const Icon(Icons.edit),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Editor(
+                        transacao: widget.transacoes[index],
+                      ),
+                    ),
+                  );
                 },
               ),
             ),

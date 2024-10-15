@@ -29,10 +29,10 @@ class TransacoesService extends AbstractService {
     print("Response: foi");
   }
 
-  Future<void> putTransacoes() async {
+  Future<void> putTransacoes(double novoValor,String novoTipo,String id) async {
     var response = await http.put(
-        Uri.parse("http://localhost:3000/transacoes/3"),
-        body: jsonEncode({"id": 3, "valor": 650.00, "tipo": "Debito"}));
+        Uri.parse("http://localhost:3000/transacoes/$id"),
+        body: jsonEncode({"id": id, "valor": novoValor, "tipo": novoTipo}));
 
     print("Response: ${response.body}");
   }

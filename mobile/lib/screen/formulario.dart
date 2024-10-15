@@ -48,7 +48,7 @@ class _FormularioState extends State<Formulario> {
                     double valor = double.parse(valorController.text);
 
                     var api = TransacoesService();
-                    api.postTransacoes(valor, tipoController.text);
+                    await api.postTransacoes(valor, tipoController.text);
 
                     List<Transacao> transacoes = await api.getTransacoes();
 
