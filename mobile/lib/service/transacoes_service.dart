@@ -18,16 +18,8 @@ class TransacoesService extends AbstractService {
     return body.map((dynamic item) => Transacao.fromJson(item)).toList();
   }
 
-  Future<void> postTransacoes(double valor, String tipo) async {
-    var response =
-        await http.post(Uri.parse("http://localhost:3000/transacoes"),
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: jsonEncode({"valor": valor, "tipo": tipo}));
-    print(response.statusCode);
-    print("Response: foi");
-  }
+
+  
 
   Future<void> putTransacoes(double novoValor,String novoTipo,String id) async {
     var response = await http.put(
@@ -45,6 +37,12 @@ class TransacoesService extends AbstractService {
   @override
   Future<void> deleteId(String id) {
     return super.deleteId(id);
+  }
+
+
+  @override
+  Future<void> postAll(dynamic objeto) {
+    return super.postAll(objeto.toJson());
   }
 
 

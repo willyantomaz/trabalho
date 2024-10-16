@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/DTO/novaTransacaoDTO.dart';
 import 'package:mobile/screen/transacoes.dart';
 
 import '../model/transacao.dart';
@@ -48,7 +49,8 @@ class _FormularioState extends State<Formulario> {
                     double valor = double.parse(valorController.text);
 
                     var api = TransacoesService();
-                    await api.postTransacoes(valor, tipoController.text);
+                    var novaTransacaoDTO = Novatransacaodto(valor, tipoController.text);
+                    await api.postAll(novaTransacaoDTO);
 
                     List<Transacao> transacoes = await api.getTransacoes();
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 abstract class AbstractService {
@@ -13,6 +15,18 @@ abstract class AbstractService {
     var response = await http.delete(Uri.parse("$URL${recurso()}/$id"));
 
     print(response.statusCode);
+  }
+
+  Future<void> postAll(dynamic objeto) async {
+    var response = await http.post(
+      Uri.parse("$URL${recurso()}"),
+      body: jsonEncode(objeto),
+    );
+
+    if(response.statusCode != 201){
+      throw Exception("Erro");
+    }
+    
   }
 
   String recurso();

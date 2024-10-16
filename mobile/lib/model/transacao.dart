@@ -12,7 +12,7 @@ class Transacao {
   factory Transacao.fromJson(Map<String, dynamic> json) {
     return Transacao(
         json['id'] as String,
-        json['valor'] as double,
+        (json['valor'] as num).toDouble(),
         json['tipo'] as String
     );
   }
